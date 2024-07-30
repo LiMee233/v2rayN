@@ -385,7 +385,7 @@ namespace v2rayN.ViewModels
             var selectedProxy = TryGetProxy(name);
             if (selectedProxy == null || selectedProxy.type != "Selector")
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
                 return;
             }
 
@@ -405,7 +405,7 @@ namespace v2rayN.ViewModels
                 //_proxyGroups.Remove(group);
                 //_proxyGroups.Insert(index, group);
             }
-            _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+            _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
 
             //RefreshProxyDetails(true);
             //GetClashProxies(true);

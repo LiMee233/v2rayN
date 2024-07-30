@@ -262,7 +262,7 @@ namespace v2rayN.ViewModels
             if (Utils.IsNullOrEmpty(localPort.ToString()) || !Utils.IsNumeric(localPort.ToString())
                || localPort <= 0 || localPort >= Global.MaxPort)
             {
-                _noticeHandler?.Enqueue(ResUI.FillLocalListeningPort);
+                _noticeHandler?.ShowMessageBox(ResUI.FillLocalListeningPort);
                 return;
             }
             var needReboot = (EnableStatistics != _config.guiItem.enableStatistics
@@ -358,17 +358,17 @@ namespace v2rayN.ViewModels
             {
                 if (needReboot)
                 {
-                    _noticeHandler?.Enqueue(ResUI.NeedRebootTips);
+                    _noticeHandler?.ShowMessageBox(ResUI.NeedRebootTips);
                 }
                 else
                 {
-                    _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                    _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
                 }
                 _view.DialogResult = true;
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
             }
         }
 

@@ -171,7 +171,7 @@ namespace v2rayN.ViewModels
         {
             if (SelectedSource is null || SelectedSource.outboundTag.IsNullOrEmpty())
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectRules);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectRules);
                 return;
             }
             if (UI.ShowYesNo(ResUI.RemoveRules) == MessageBoxResult.No)
@@ -194,7 +194,7 @@ namespace v2rayN.ViewModels
         {
             if (SelectedSource is null || SelectedSource.outboundTag.IsNullOrEmpty())
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectRules);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectRules);
                 return;
             }
 
@@ -219,7 +219,7 @@ namespace v2rayN.ViewModels
         {
             if (SelectedSource is null || SelectedSource.outboundTag.IsNullOrEmpty())
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectRules);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectRules);
                 return;
             }
 
@@ -240,7 +240,7 @@ namespace v2rayN.ViewModels
             string remarks = SelectedRouting.remarks;
             if (Utils.IsNullOrEmpty(remarks))
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseFillRemarks);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseFillRemarks);
                 return;
             }
             var item = SelectedRouting;
@@ -253,12 +253,12 @@ namespace v2rayN.ViewModels
 
             if (ConfigHandler.SaveRoutingItem(_config, item) == 0)
             {
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
                 _view.DialogResult = true;
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
             }
         }
 
@@ -285,7 +285,7 @@ namespace v2rayN.ViewModels
             if (AddBatchRoutingRules(SelectedRouting, result) == 0)
             {
                 RefreshRulesItems();
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
             }
         }
 
@@ -295,7 +295,7 @@ namespace v2rayN.ViewModels
             if (AddBatchRoutingRules(SelectedRouting, clipboardData) == 0)
             {
                 RefreshRulesItems();
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
             }
         }
 
@@ -304,7 +304,7 @@ namespace v2rayN.ViewModels
             var url = SelectedRouting.url;
             if (Utils.IsNullOrEmpty(url))
             {
-                _noticeHandler?.Enqueue(ResUI.MsgNeedUrl);
+                _noticeHandler?.ShowMessageBox(ResUI.MsgNeedUrl);
                 return;
             }
 
@@ -316,7 +316,7 @@ namespace v2rayN.ViewModels
                 {
                     RefreshRulesItems();
                 }));
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
             }
         }
 

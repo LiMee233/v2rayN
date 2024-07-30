@@ -48,7 +48,7 @@ namespace v2rayN.ViewModels
             string remarks = SelectedSource.remarks;
             if (Utils.IsNullOrEmpty(remarks))
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseFillRemarks);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseFillRemarks);
                 return;
             }
 
@@ -74,13 +74,13 @@ namespace v2rayN.ViewModels
 
             if (ConfigHandler.AddSubItem(_config, item) == 0)
             {
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
                 _view.DialogResult = true;
                 //_view?.Close();
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
             }
         }
     }

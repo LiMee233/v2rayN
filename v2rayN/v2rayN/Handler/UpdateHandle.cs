@@ -94,7 +94,7 @@ namespace v2rayN.Handler
                 }
                 else
                 {
-                    Locator.Current.GetService<NoticeHandler>()?.Enqueue(args.Msg);
+                    Locator.Current.GetService<NoticeHandler>()?.ShowMessageBox(args.Msg);
                     _updateFunc(false, args.Msg);
                 }
             };
@@ -150,7 +150,7 @@ namespace v2rayN.Handler
                 }
                 else
                 {
-                    Locator.Current.GetService<NoticeHandler>()?.Enqueue(args.Msg);
+                    Locator.Current.GetService<NoticeHandler>()?.ShowMessageBox(args.Msg);
                     _updateFunc(false, args.Msg);
                 }
             };

@@ -5,7 +5,6 @@
     xmlns:base="clr-namespace:v2rayN.Base"
     xmlns:conv="clr-namespace:v2rayN.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:reactiveui="http://reactiveui.net"
     xmlns:resx="clr-namespace:v2rayN.Resx"
@@ -24,9 +23,7 @@
                 <ListBox
                     x:Name="lstGroup"
                     MaxHeight="200"
-                    FontSize="{DynamicResource StdFontSize}"
-                    ItemContainerStyle="{StaticResource MyChipListBoxItem}"
-                    Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
+                    FontSize="{DynamicResource StdFontSize}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding remarks}" />
@@ -38,39 +35,29 @@
                     x:Name="btnEditSub"
                     Width="30"
                     Height="30"
-                    Margin="4,0"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Edit" />
+                    Margin="4,0">
                 </Button>
                 <Button
                     x:Name="btnAddSub"
                     Width="30"
                     Height="30"
-                    Margin="4,0"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Plus" />
+                    Margin="4,0">
                 </Button>
 
                 <Button
                     x:Name="btnAutofitColumnWidth"
                     Width="30"
                     Height="30"
-                    Margin="20,0"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="ArrowSplitVertical" />
+                    Margin="20,0">
                 </Button>
                 <TextBox
                     x:Name="txtServerFilter"
                     Width="200"
                     Margin="4,0"
-                    VerticalContentAlignment="Center"
-                    materialDesign:HintAssist.Hint="{x:Static resx:ResUI.MsgServerTitle}"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    Style="{StaticResource DefTextBox}" />
+                    VerticalContentAlignment="Center" />
             </WrapPanel>
             <DataGrid
                 x:Name="lstProfiles"
-                materialDesign:DataGridAssist.CellPadding="2,2"
                 AutoGenerateColumns="False"
                 BorderThickness="1"
                 CanUserAddRows="False"
@@ -81,8 +68,7 @@
                 GridLinesVisibility="All"
                 HeadersVisibility="All"
                 IsReadOnly="True"
-                RowHeaderWidth="40"
-                Style="{StaticResource DefDataGrid}">
+                RowHeaderWidth="40">
                 <DataGrid.InputBindings>
                     <KeyBinding Command="ApplicationCommands.NotACommand" Gesture="Ctrl+C" />
                     <KeyBinding Command="ApplicationCommands.NotACommand" Gesture="Ctrl+V" />
@@ -90,7 +76,7 @@
                     <KeyBinding Command="ApplicationCommands.NotACommand" Gesture="Enter" />
                 </DataGrid.InputBindings>
                 <DataGrid.ContextMenu>
-                    <ContextMenu Style="{StaticResource DefContextMenu}">
+                    <ContextMenu>
                         <MenuItem
                             x:Name="menuEditServer"
                             Height="{StaticResource MenuItemHeight}"
@@ -157,10 +143,8 @@
                                         <ComboBox
                                             x:Name="cmbMoveToGroup"
                                             Width="200"
-                                            materialDesign:HintAssist.Hint="{x:Static resx:ResUI.menuSubscription}"
                                             DisplayMemberPath="remarks"
-                                            FontSize="{DynamicResource StdFontSize}"
-                                            Style="{StaticResource MaterialDesignFilledComboBox}" />
+                                            FontSize="{DynamicResource StdFontSize}" />
                                     </DockPanel>
                                 </MenuItem.Header>
                             </MenuItem>
@@ -200,19 +184,19 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Resources>
-                    <Style BasedOn="{StaticResource MaterialDesignDataGridRow}" TargetType="DataGridRow">
+                    <Style TargetType="DataGridRow">
                         <EventSetter Event="MouseDoubleClick" Handler="LstProfiles_MouseDoubleClick" />
                     </Style>
-                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                    <Style TargetType="DataGridColumnHeader">
                         <EventSetter Event="Click" Handler="LstProfiles_ColumnHeader_Click" />
                     </Style>
 
-                    <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                    <Style TargetType="DataGridCell">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding isActive}" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
+                                <Setter Property="Background" Value="#888888" />
                                 <Setter Property="Foreground" Value="Black" />
-                                <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
+                                <Setter Property="BorderBrush" Value="#888888" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

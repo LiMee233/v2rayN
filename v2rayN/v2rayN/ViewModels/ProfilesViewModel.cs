@@ -1,6 +1,5 @@
 using DynamicData;
 using DynamicData.Binding;
-using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -262,7 +261,7 @@ namespace v2rayN.ViewModels
             if (Utils.IsNullOrEmpty(indexId))
             {
                 _noticeHandler?.SendMessage(delay, true);
-                _noticeHandler?.Enqueue(delay);
+                _noticeHandler?.ShowMessageBox(delay);
                 return;
             }
             var item = _profileItems.Where(it => it.indexId == indexId).FirstOrDefault();
@@ -477,7 +476,7 @@ namespace v2rayN.ViewModels
                 item = LazyConfig.Instance.GetProfileItem(SelectedProfile.indexId);
                 if (item is null)
                 {
-                    _noticeHandler?.Enqueue(ResUI.PleaseSelectServer);
+                    _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectServer);
                     return;
                 }
                 eConfigType = item.configType;
@@ -515,7 +514,7 @@ namespace v2rayN.ViewModels
             var exists = lstSelecteds.Exists(t => t.indexId == _config.indexId);
 
             ConfigHandler.RemoveServer(_config, lstSelecteds);
-            _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+            _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
 
             RefreshServers();
             if (exists)
@@ -529,7 +528,7 @@ namespace v2rayN.ViewModels
             var tuple = ConfigHandler.DedupServerList(_config, _config.subIndexId);
             RefreshServers();
             Reload();
-            _noticeHandler?.Enqueue(string.Format(ResUI.RemoveDuplicateServerResult, tuple.Item1, tuple.Item2));
+            _noticeHandler?.ShowMessageBox(string.Format(ResUI.RemoveDuplicateServerResult, tuple.Item1, tuple.Item2));
         }
 
         private void CopyServer()
@@ -541,7 +540,7 @@ namespace v2rayN.ViewModels
             if (ConfigHandler.CopyServer(_config, lstSelecteds) == 0)
             {
                 RefreshServers();
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
             }
         }
 
@@ -567,7 +566,7 @@ namespace v2rayN.ViewModels
             var item = LazyConfig.Instance.GetProfileItem(indexId);
             if (item is null)
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectServer);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectServer);
                 return;
             }
 
@@ -600,7 +599,7 @@ namespace v2rayN.ViewModels
             var item = LazyConfig.Instance.GetProfileItem(SelectedProfile.indexId);
             if (item is null)
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectServer);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectServer);
                 return;
             }
             var url = FmtHandler.GetShareUri(item);
@@ -615,7 +614,8 @@ namespace v2rayN.ViewModels
                 txtContent = { Text = url },
             };
 
-            await DialogHost.Show(dialog, "RootDialog");
+            // TODO: й╣ож
+            // await DialogHost.Show(dialog, "RootDialog");
         }
 
         private void SetDefaultMultipleServer(ECoreType coreType)
@@ -627,7 +627,7 @@ namespace v2rayN.ViewModels
 
             if (ConfigHandler.AddCustomServer4Multiple(_config, lstSelecteds, coreType, out string indexId) != 0)
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
                 return;
             }
             if (indexId == _config.indexId)
@@ -671,7 +671,7 @@ namespace v2rayN.ViewModels
             }
 
             ConfigHandler.MoveToGroup(_config, lstSelecteds, SelectedMoveToGroup.id);
-            _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+            _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
 
             RefreshServers();
             SelectedMoveToGroup = new();
@@ -683,7 +683,7 @@ namespace v2rayN.ViewModels
             var item = _lstProfile.FirstOrDefault(t => t.indexId == SelectedProfile.indexId);
             if (item is null)
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectServer);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectServer);
                 return;
             }
 
@@ -733,7 +733,7 @@ namespace v2rayN.ViewModels
             var item = LazyConfig.Instance.GetProfileItem(SelectedProfile.indexId);
             if (item is null)
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectServer);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectServer);
                 return;
             }
             MainFormHandler.Instance.Export2ClientConfig(item, _config);

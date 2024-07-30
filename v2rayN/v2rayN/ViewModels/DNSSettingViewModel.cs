@@ -79,7 +79,7 @@ namespace v2rayN.ViewModels
                 {
                     if (normalDNS.Contains("{") || normalDNS.Contains("}"))
                     {
-                        _noticeHandler?.Enqueue(ResUI.FillCorrectDNSText);
+                        _noticeHandler?.ShowMessageBox(ResUI.FillCorrectDNSText);
                         return;
                     }
                 }
@@ -89,7 +89,7 @@ namespace v2rayN.ViewModels
                 var obj2 = JsonUtils.Deserialize<Dns4Sbox>(normalDNS2);
                 if (obj2 == null)
                 {
-                    _noticeHandler?.Enqueue(ResUI.FillCorrectDNSText);
+                    _noticeHandler?.ShowMessageBox(ResUI.FillCorrectDNSText);
                     return;
                 }
             }
@@ -98,7 +98,7 @@ namespace v2rayN.ViewModels
                 var obj2 = JsonUtils.Deserialize<Dns4Sbox>(tunDNS2);
                 if (obj2 == null)
                 {
-                    _noticeHandler?.Enqueue(ResUI.FillCorrectDNSText);
+                    _noticeHandler?.ShowMessageBox(ResUI.FillCorrectDNSText);
                     return;
                 }
             }
@@ -117,7 +117,7 @@ namespace v2rayN.ViewModels
             item2.tunDNS = JsonUtils.Serialize(JsonUtils.ParseJson(tunDNS2));;
             ConfigHandler.SaveDNSItems(_config, item2);
 
-            _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+            _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
             _view.DialogResult = true;
         }
     }

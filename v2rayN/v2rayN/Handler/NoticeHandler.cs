@@ -1,24 +1,17 @@
-﻿using MaterialDesignThemes.Wpf;
-using ReactiveUI;
+﻿using ReactiveUI;
+using System.Windows;
 
 namespace v2rayN.Handler
 {
     public class NoticeHandler
     {
-        private readonly ISnackbarMessageQueue _snackbarMessageQueue;
-
-        public NoticeHandler(ISnackbarMessageQueue snackbarMessageQueue)
-        {
-            _snackbarMessageQueue = snackbarMessageQueue ?? throw new ArgumentNullException(nameof(snackbarMessageQueue));
-        }
-
-        public void Enqueue(string? content)
+        public void ShowMessageBox(string? content)
         {
             if (content.IsNullOrEmpty())
             {
                 return;
             }
-            _snackbarMessageQueue?.Enqueue(content);
+            MessageBox.Show(content);
         }
 
         public void SendMessage(string? content)
@@ -42,7 +35,7 @@ namespace v2rayN.Handler
 
         public void SendMessageAndEnqueue(string? msg)
         {
-            Enqueue(msg);
+            ShowMessageBox(msg);
             SendMessage(msg);
         }
     }

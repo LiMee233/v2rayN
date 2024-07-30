@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="clr-namespace:v2rayN.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:reactiveui="http://reactiveui.net"
     xmlns:resx="clr-namespace:v2rayN.Resx"
@@ -13,12 +12,10 @@
     Width="990"
     Height="700"
     x:TypeArguments="vms:RoutingSettingViewModel"
-    Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{x:Static conv:MaterialDesignFonts.MyFont}"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
     TextElement.FontFamily="{x:Static conv:MaterialDesignFonts.MyFont}"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Display"
     TextOptions.TextRenderingMode="Auto"
     WindowStartupLocation="CenterScreen"
@@ -33,16 +30,11 @@
             <ToolBar
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                ClipToBounds="True"
-                Style="{StaticResource MaterialDesignToolBar}">
-                <Menu Margin="0,8" Style="{StaticResource ToolbarMenu}">
+                ClipToBounds="True">
+                <Menu Margin="0,8">
                     <MenuItem x:Name="menuRoutingBasic" Padding="8,0">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Server" />
                                 <TextBlock Text="{x:Static resx:ResUI.menuRoutingBasic}" />
                             </StackPanel>
                         </MenuItem.Header>
@@ -52,14 +44,10 @@
                             Header="{x:Static resx:ResUI.menuRoutingBasicImportRules}" />
                     </MenuItem>
                 </Menu>
-                <Menu Margin="0,8" Style="{StaticResource ToolbarMenu}">
+                <Menu Margin="0,8">
                     <MenuItem x:Name="menuRoutingAdvanced" Padding="8,0">
                         <MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Margin="0,0,8,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Routes" />
                                 <TextBlock Text="{x:Static resx:ResUI.menuRoutingAdvanced}" />
                             </StackPanel>
                         </MenuItem.Header>
@@ -77,7 +65,6 @@
                 <TextBlock
                     Margin="8,0,0,0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource ToolbarTextBlock}"
                     Text="{x:Static resx:ResUI.TbenableRoutingAdvanced}" />
                 <ToggleButton
                     x:Name="togenableRoutingAdvanced"
@@ -86,44 +73,36 @@
                 <Separator />
                 <TextBlock
                     Margin="8,0,0,0"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ToolbarTextBlock}">
+                    VerticalAlignment="Center">
                     <Hyperlink Click="linkdomainStrategy_Click">
                         <TextBlock Text="{x:Static resx:ResUI.TbdomainStrategy}" />
-                        <materialDesign:PackIcon Kind="Link" />
                     </Hyperlink>
                 </TextBlock>
                 <ComboBox
                     x:Name="cmbdomainStrategy"
                     Width="110"
-                    Margin="8,0,0,0"
-                    Style="{StaticResource DefComboBox}" />
+                    Margin="8,0,0,0" />
                 <Separator />
                 <TextBlock
                     Margin="8,0,0,0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource ToolbarTextBlock}"
                     Text="{x:Static resx:ResUI.TbdomainMatcher}" />
                 <ComboBox
                     x:Name="cmbdomainMatcher"
                     Width="60"
-                    Margin="8,0,0,0"
-                    Style="{StaticResource DefComboBox}" />
+                    Margin="8,0,0,0" />
                 <Separator />
                 <TextBlock
                     Margin="8,0,0,0"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ToolbarTextBlock}">
+                    VerticalAlignment="Center">
                     <Hyperlink Click="linkdomainStrategy4Singbox_Click">
                         <TextBlock Text="{x:Static resx:ResUI.TbdomainStrategy4Singbox}" />
-                        <materialDesign:PackIcon Kind="Link" />
                     </Hyperlink>
                 </TextBlock>
                 <ComboBox
                     x:Name="cmbdomainStrategy4Singbox"
                     Width="100"
-                    Margin="8,0,0,0"
-                    Style="{StaticResource DefComboBox}" />
+                    Margin="8,0,0,0" />
             </ToolBar>
         </ToolBarTray>
 
@@ -136,14 +115,13 @@
                 Width="600"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center">
-                <TextBlock Style="{StaticResource ToolbarTextBlock}" Text="{x:Static resx:ResUI.TbRoutingTips}" />
+                <TextBlock Text="{x:Static resx:ResUI.TbRoutingTips}" />
             </StackPanel>
             <Button
                 x:Name="btnSave"
                 Width="100"
                 Content="{x:Static resx:ResUI.TbConfirm}"
-                Cursor="Hand"
-                Style="{StaticResource DefButton}" />
+                Cursor="Hand" />
             <Button
                 x:Name="btnCancel"
                 Width="100"
@@ -151,8 +129,7 @@
                 Click="btnCancel_Click"
                 Content="{x:Static resx:ResUI.TbCancel}"
                 Cursor="Hand"
-                IsCancel="true"
-                Style="{StaticResource DefButton}" />
+                IsCancel="true" />
         </StackPanel>
 
         <DockPanel>
@@ -169,10 +146,9 @@
                         EnableRowVirtualization="True"
                         GridLinesVisibility="All"
                         HeadersVisibility="Column"
-                        IsReadOnly="True"
-                        Style="{StaticResource DefDataGrid}">
+                        IsReadOnly="True">
                         <DataGrid.ContextMenu>
-                            <ContextMenu Style="{StaticResource DefContextMenu}">
+                            <ContextMenu>
                                 <MenuItem
                                     x:Name="menuRoutingAdvancedAdd"
                                     Height="{StaticResource MenuItemHeight}"
@@ -198,12 +174,12 @@
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Resources>
-                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                            <Style TargetType="DataGridCell">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding isActive}" Value="True">
-                                        <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
+                                        <Setter Property="Background" Value="#888888" />
                                         <Setter Property="Foreground" Value="Black" />
-                                        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
+                                        <Setter Property="BorderBrush" Value="#888888" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -244,24 +220,20 @@
                         </Grid.ColumnDefinitions>
                         <GroupBox
                             Grid.Column="0"
-                            Header="Domain"
-                            Style="{StaticResource MyGroupBox}">
+                            Header="Domain">
                             <TextBox
                                 Name="txtProxyDomain"
                                 AcceptsReturn="True"
-                                Style="{StaticResource DefTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </GroupBox>
                         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
                         <GroupBox
                             Grid.Column="2"
-                            Header="IP"
-                            Style="{StaticResource MyGroupBox}">
+                            Header="IP">
                             <TextBox
                                 Name="txtProxyIP"
                                 AcceptsReturn="True"
-                                Style="{StaticResource DefTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </GroupBox>
@@ -277,24 +249,20 @@
                         </Grid.ColumnDefinitions>
                         <GroupBox
                             Grid.Column="0"
-                            Header="Domain"
-                            Style="{StaticResource MyGroupBox}">
+                            Header="Domain">
                             <TextBox
                                 Name="txtDirectDomain"
                                 AcceptsReturn="True"
-                                Style="{StaticResource DefTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </GroupBox>
                         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
                         <GroupBox
                             Grid.Column="2"
-                            Header="IP"
-                            Style="{StaticResource MyGroupBox}">
+                            Header="IP">
                             <TextBox
                                 Name="txtDirectIP"
                                 AcceptsReturn="True"
-                                Style="{StaticResource DefTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </GroupBox>
@@ -310,24 +278,20 @@
                         </Grid.ColumnDefinitions>
                         <GroupBox
                             Grid.Column="0"
-                            Header="Domain"
-                            Style="{StaticResource MyGroupBox}">
+                            Header="Domain">
                             <TextBox
                                 Name="txtBlockDomain"
                                 AcceptsReturn="True"
-                                Style="{StaticResource DefTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </GroupBox>
                         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
                         <GroupBox
                             Grid.Column="2"
-                            Header="IP"
-                            Style="{StaticResource MyGroupBox}">
+                            Header="IP">
                             <TextBox
                                 Name="txtBlockIP"
                                 AcceptsReturn="True"
-                                Style="{StaticResource DefTextBox}"
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto" />
                         </GroupBox>

@@ -147,7 +147,7 @@ namespace v2rayN.Handler
             }
             if (CoreConfigHandler.GenerateClientConfig(item, fileName, out string msg, out string content) != 0)
             {
-                Locator.Current.GetService<NoticeHandler>()?.Enqueue(msg);
+                Locator.Current.GetService<NoticeHandler>()?.ShowMessageBox(msg);
             }
             else
             {

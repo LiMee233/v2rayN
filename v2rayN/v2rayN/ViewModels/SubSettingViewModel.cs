@@ -1,6 +1,5 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
-using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -106,7 +105,7 @@ namespace v2rayN.ViewModels
                 ConfigHandler.DeleteSubItem(_config, it.id);
             }
             RefreshSubItems();
-            _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+            _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
             IsModified = true;
         }
 
@@ -123,7 +122,8 @@ namespace v2rayN.ViewModels
                 txtContent = { Text = SelectedSource?.url },
             };
 
-            await DialogHost.Show(dialog, "SubDialog");
+            // TODO: 实现
+            // await DialogHost.Show(dialog, "SubDialog");
         }
     }
 }

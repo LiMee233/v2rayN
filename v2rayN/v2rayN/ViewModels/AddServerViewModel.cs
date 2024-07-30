@@ -52,32 +52,32 @@ namespace v2rayN.ViewModels
         {
             if (Utils.IsNullOrEmpty(SelectedSource.remarks))
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseFillRemarks);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseFillRemarks);
                 return;
             }
 
             if (Utils.IsNullOrEmpty(SelectedSource.address))
             {
-                _noticeHandler?.Enqueue(ResUI.FillServerAddress);
+                _noticeHandler?.ShowMessageBox(ResUI.FillServerAddress);
                 return;
             }
             var port = SelectedSource.port.ToString();
             if (Utils.IsNullOrEmpty(port) || !Utils.IsNumeric(port)
                 || SelectedSource.port <= 0 || SelectedSource.port >= Global.MaxPort)
             {
-                _noticeHandler?.Enqueue(ResUI.FillCorrectServerPort);
+                _noticeHandler?.ShowMessageBox(ResUI.FillCorrectServerPort);
                 return;
             }
             if (SelectedSource.configType == EConfigType.Shadowsocks)
             {
                 if (Utils.IsNullOrEmpty(SelectedSource.id))
                 {
-                    _noticeHandler?.Enqueue(ResUI.FillPassword);
+                    _noticeHandler?.ShowMessageBox(ResUI.FillPassword);
                     return;
                 }
                 if (Utils.IsNullOrEmpty(SelectedSource.security))
                 {
-                    _noticeHandler?.Enqueue(ResUI.PleaseSelectEncryption);
+                    _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectEncryption);
                     return;
                 }
             }
@@ -86,7 +86,7 @@ namespace v2rayN.ViewModels
             {
                 if (Utils.IsNullOrEmpty(SelectedSource.id))
                 {
-                    _noticeHandler?.Enqueue(ResUI.FillUUID);
+                    _noticeHandler?.ShowMessageBox(ResUI.FillUUID);
                     return;
                 }
             }
@@ -140,13 +140,13 @@ namespace v2rayN.ViewModels
 
             if (ret == 0)
             {
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
                 _view.DialogResult = true;
                 //_view?.Close();
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
             }
         }
     }

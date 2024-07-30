@@ -64,13 +64,13 @@ namespace v2rayN.ViewModels
             string remarks = SelectedSource.remarks;
             if (Utils.IsNullOrEmpty(remarks))
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseFillRemarks);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseFillRemarks);
                 return;
             }
 
             if (Utils.IsNullOrEmpty(SelectedSource.address))
             {
-                _noticeHandler?.Enqueue(ResUI.FillServerAddressCustom);
+                _noticeHandler?.ShowMessageBox(ResUI.FillServerAddressCustom);
                 return;
             }
 
@@ -90,12 +90,12 @@ namespace v2rayN.ViewModels
 
             if (ConfigHandler.EditCustomServer(_config, item) == 0)
             {
-                _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
                 _view.DialogResult = true;
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.OperationFailed);
+                _noticeHandler?.ShowMessageBox(ResUI.OperationFailed);
             }
         }
 
@@ -118,7 +118,7 @@ namespace v2rayN.ViewModels
             item.address = fileName;
             if (ConfigHandler.AddCustomServer(_config, item, false) == 0)
             {
-                _noticeHandler?.Enqueue(ResUI.SuccessfullyImportedCustomServer);
+                _noticeHandler?.ShowMessageBox(ResUI.SuccessfullyImportedCustomServer);
                 if (!Utils.IsNullOrEmpty(item.indexId))
                 {
                     SelectedSource = JsonUtils.DeepCopy(item);
@@ -127,7 +127,7 @@ namespace v2rayN.ViewModels
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.FailedImportedCustomServer);
+                _noticeHandler?.ShowMessageBox(ResUI.FailedImportedCustomServer);
             }
         }
 
@@ -136,7 +136,7 @@ namespace v2rayN.ViewModels
             var address = SelectedSource.address;
             if (Utils.IsNullOrEmpty(address))
             {
-                _noticeHandler?.Enqueue(ResUI.FillServerAddressCustom);
+                _noticeHandler?.ShowMessageBox(ResUI.FillServerAddressCustom);
                 return;
             }
 
@@ -147,7 +147,7 @@ namespace v2rayN.ViewModels
             }
             else
             {
-                _noticeHandler?.Enqueue(ResUI.FailedReadConfiguration);
+                _noticeHandler?.ShowMessageBox(ResUI.FailedReadConfiguration);
             }
         }
     }

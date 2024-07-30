@@ -1,8 +1,5 @@
 using DynamicData;
 using DynamicData.Binding;
-using MaterialDesignColors;
-using MaterialDesignColors.ColorManipulation;
-using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
@@ -30,7 +27,6 @@ namespace v2rayN.ViewModels
         private CoreHandler _coreHandler;
         private static Config _config;
         private NoticeHandler? _noticeHandler;
-        private readonly PaletteHelper _paletteHelper = new();
         private Action<EViewAction> _updateView;
         private bool _showInTaskbar;
 
@@ -168,12 +164,6 @@ namespace v2rayN.ViewModels
         [Reactive]
         public bool ColorModeDark { get; set; }
 
-        private IObservableCollection<Swatch> _swatches = new ObservableCollectionExtended<Swatch>();
-        public IObservableCollection<Swatch> Swatches => _swatches;
-
-        [Reactive]
-        public Swatch SelectedSwatch { get; set; }
-
         [Reactive]
         public int CurrentFontSize { get; set; }
 
@@ -193,12 +183,12 @@ namespace v2rayN.ViewModels
 
         #region Init
 
-        public MainWindowViewModel(ISnackbarMessageQueue snackbarMessageQueue, Action<EViewAction> updateView)
+        public MainWindowViewModel(Action<EViewAction> updateView)
         {
             _updateView = updateView;
             ThreadPool.RegisterWaitForSingleObject(App.ProgramStarted, OnProgramStarted, null, -1, false);
 
-            _noticeHandler = new NoticeHandler(snackbarMessageQueue);
+            _noticeHandler = new NoticeHandler();
             Locator.CurrentMutable.RegisterLazySingleton(() => _noticeHandler, typeof(NoticeHandler));
             _config = LazyConfig.Instance.GetConfig();
 
@@ -335,7 +325,7 @@ namespace v2rayN.ViewModels
             {
                 if ((new GlobalHotkeySettingWindow()).ShowDialog() == true)
                 {
-                    _noticeHandler?.Enqueue(ResUI.OperationSuccess);
+                    _noticeHandler?.ShowMessageBox(ResUI.OperationSuccess);
                 }
             });
             RebootAsAdminCmd = ReactiveCommand.Create(() =>
@@ -453,7 +443,7 @@ namespace v2rayN.ViewModels
             _noticeHandler?.SendMessage(msg);
             if (notify)
             {
-                _noticeHandler?.Enqueue(msg);
+                _noticeHandler?.ShowMessageBox(msg);
             }
         }
 
@@ -660,7 +650,7 @@ namespace v2rayN.ViewModels
             {
                 RefreshSubscriptions();
                 RefreshServers();
-                _noticeHandler?.Enqueue(string.Format(ResUI.SuccessfullyImportedServerViaClipboard, ret));
+                _noticeHandler?.ShowMessageBox(string.Format(ResUI.SuccessfullyImportedServerViaClipboard, ret));
             }
         }
 
@@ -678,7 +668,7 @@ namespace v2rayN.ViewModels
 
             if (Utils.IsNullOrEmpty(result))
             {
-                _noticeHandler?.Enqueue(ResUI.NoValidQRcodeFound);
+                _noticeHandler?.ShowMessageBox(ResUI.NoValidQRcodeFound);
             }
             else
             {
@@ -687,7 +677,7 @@ namespace v2rayN.ViewModels
                 {
                     RefreshSubscriptions();
                     RefreshServers();
-                    _noticeHandler?.Enqueue(ResUI.SuccessfullyImportedServerViaScan);
+                    _noticeHandler?.ShowMessageBox(ResUI.SuccessfullyImportedServerViaScan);
                 }
             }
         }
@@ -705,7 +695,7 @@ namespace v2rayN.ViewModels
             var item = LazyConfig.Instance.GetProfileItem(indexId);
             if (item is null)
             {
-                _noticeHandler?.Enqueue(ResUI.PleaseSelectServer);
+                _noticeHandler?.ShowMessageBox(ResUI.PleaseSelectServer);
                 return;
             }
 
@@ -1108,28 +1098,12 @@ namespace v2rayN.ViewModels
             {
                 ModifyTheme(_config.uiItem.colorModeDark);
             }
-
-            if (!_config.uiItem.colorPrimaryName.IsNullOrEmpty())
-            {
-                var swatch = new SwatchesProvider().Swatches.FirstOrDefault(t => t.Name == _config.uiItem.colorPrimaryName);
-                if (swatch != null
-                   && swatch.ExemplarHue != null
-                   && swatch.ExemplarHue?.Color != null)
-                {
-                    ChangePrimaryColor(swatch.ExemplarHue.Color);
-                }
-            }
         }
 
         private void BindingUI()
         {
             ColorModeDark = _config.uiItem.colorModeDark;
             FollowSystemTheme = _config.uiItem.followSystemTheme;
-            _swatches.AddRange(new SwatchesProvider().Swatches);
-            if (!_config.uiItem.colorPrimaryName.IsNullOrEmpty())
-            {
-                SelectedSwatch = _swatches.FirstOrDefault(t => t.Name == _config.uiItem.colorPrimaryName);
-            }
             CurrentFontSize = _config.uiItem.currentFontSize;
             CurrentLanguage = _config.uiItem.currentLanguage;
 
@@ -1164,26 +1138,6 @@ namespace v2rayN.ViewModels
                             }
                         }
                     });
-
-            this.WhenAnyValue(
-              x => x.SelectedSwatch,
-              y => y != null && !y.Name.IsNullOrEmpty())
-                 .Subscribe(c =>
-                 {
-                     if (SelectedSwatch == null
-                     || SelectedSwatch.Name.IsNullOrEmpty()
-                     || SelectedSwatch.ExemplarHue == null
-                     || SelectedSwatch.ExemplarHue?.Color == null)
-                     {
-                         return;
-                     }
-                     if (_config.uiItem.colorPrimaryName != SelectedSwatch?.Name)
-                     {
-                         _config.uiItem.colorPrimaryName = SelectedSwatch?.Name;
-                         ChangePrimaryColor(SelectedSwatch.ExemplarHue.Color);
-                         ConfigHandler.SaveConfig(_config);
-                     }
-                 });
 
             this.WhenAnyValue(
                x => x.CurrentFontSize,
@@ -1256,23 +1210,12 @@ namespace v2rayN.ViewModels
 
         public void ModifyTheme(bool isDarkTheme)
         {
-            var theme = _paletteHelper.GetTheme();
-
-            theme.SetBaseTheme(isDarkTheme ? BaseTheme.Dark : BaseTheme.Light);
-            _paletteHelper.SetTheme(theme);
-
-            Utils.SetDarkBorder(Application.Current.MainWindow, isDarkTheme);
+            // TODO: 重新实现
         }
 
         public void ChangePrimaryColor(System.Windows.Media.Color color)
         {
-            var theme = _paletteHelper.GetTheme();
-
-            theme.PrimaryLight = new ColorPair(color.Lighten());
-            theme.PrimaryMid = new ColorPair(color);
-            theme.PrimaryDark = new ColorPair(color.Darken());
-
-            _paletteHelper.SetTheme(theme);
+            // TODO: 重新实现
         }
 
         private void AutoHideStartup()
