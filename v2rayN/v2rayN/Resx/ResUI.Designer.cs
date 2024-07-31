@@ -1447,6 +1447,15 @@ namespace v2rayN.Resx {
         }
         
         /// <summary>
+        ///   查找类似 UI &amp; Language 的本地化字符串。
+        /// </summary>
+        public static string menuTbSettings {
+            get {
+                return ResourceManager.GetString("menuTbSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Test servers with tcping (Ctrl+O) 的本地化字符串。
         /// </summary>
         public static string menuTcpingServer {

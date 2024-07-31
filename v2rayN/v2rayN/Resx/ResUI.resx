@@ -1261,4 +1261,7 @@
   <data name="TbSettingsDomainDNSAddress" xml:space="preserve">
     <value>Outbound DNS address</value>
   </data>
+  <data name="menuTbSettings" xml:space="preserve">
+    <value>UI &amp; Language</value>
+  </data>
 </root>
